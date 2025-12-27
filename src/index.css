@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+
+/* Global matte black theme */
+@layer base {
+  body {
+    @apply bg-gray-900 text-gray-100 min-h-screen;
+  }
+
+  /* Optional: links or headings colors */
+  a {
+    @apply text-blue-400 hover:text-blue-500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-gray-100;
+  }
+}
