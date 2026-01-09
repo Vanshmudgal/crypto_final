@@ -149,16 +149,14 @@ const News = () => {
         <div className="absolute top-1/2 right-1/4 w-48 h-48 bg-gradient-to-r from-cyan-500/10 to-transparent rounded-full blur-xl animate-pulse" />
       </div>
 
-      {/* Navbar */}
-      
-
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-10">
         {/* Header Section */}
         <div className="mb-8">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+              {/* FIXED: Added inline-block, leading-normal, and pb-2 to prevent clipping */}
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent inline-block leading-normal pb-2">
                 Crypto News
               </h1>
               <p className="text-gray-300 text-lg">
