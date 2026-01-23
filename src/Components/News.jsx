@@ -229,6 +229,7 @@ const News = () => {
                 <img
                   src={article.image_url || fallbackImage}
                   alt={article.title}
+                  loading="lazy" // <--- LAZY LOADING ADDED HERE
                   className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
                   onError={(e) => {
                     e.target.src = fallbackImage;
