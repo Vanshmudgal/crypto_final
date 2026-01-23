@@ -34,43 +34,45 @@ const NFT = ({ watchlistCount = 0 }) => {
   ];
 
   useEffect(() => {
-    const fetchNFTs = async () => {
-      setLoading(true);
-      try {
-        const allNFTs = [];
+    console.log("API Key from env:", import.meta.env.VITE_OPENSEA_API_KEY);
+console.log("All env vars:", import.meta.env);
+  const fetchNFTs = async () => {
+    setLoading(true);
+    try {
+      const allNFTs = [];
 
-        for (const collection of collections.slice(0, 3)) {
-          const res = await axios.get(
-            `https://api.opensea.io/api/v2/collection/${collection.slug}/nfts`,
-            {
-              headers: {
-                accept: "application/json",
-                "x-api-key": "fd5037d97e1a4f43b8d2e993f0d38a55",
-              },
-              params: { limit: 10 },
-            }
-          );
+      for (const collection of collections.slice(0, 3)) {
+        const res = await axios.get(
+          `https://api.opensea.io/api/v2/collection/${collection.slug}/nfts`,
+          {
+            headers: {
+              accept: "application/json",
+              "x-api-key": import.meta.env.VITE_OPENSEA_API_KEY, // ← ONLY THIS LINE CHANGED
+            },
+            params: { limit: 10 },
+          }
+        );
 
-          const mapped =
-            res.data?.nfts?.map((nft) => ({
-              ...nft,
-              collection_name: collection.name,
-              collection_slug: collection.slug,
-            })) || [];
+        const mapped =
+          res.data?.nfts?.map((nft) => ({
+            ...nft,
+            collection_name: collection.name,
+            collection_slug: collection.slug,
+          })) || [];
 
-          allNFTs.push(...mapped);
-        }
-
-        setNfts(allNFTs);
-      } catch (err) {
-        setError("Error fetching NFTs");
-      } finally {
-        setLoading(false);
+        allNFTs.push(...mapped);
       }
-    };
 
-    fetchNFTs();
-  }, []);
+      setNfts(allNFTs);
+    } catch (err) {
+      setError("Error fetching NFTs");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchNFTs();
+}, []);
 
   // Reset page when filters change
   useEffect(() => {

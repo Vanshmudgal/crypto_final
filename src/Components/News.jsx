@@ -25,9 +25,20 @@ const News = () => {
   useEffect(() => {
     const fetchNews = async () => {
       try {
+        // 1. Get the API Key from the environment variables
+        const apiKey = import.meta.env.VITE_NEWSDATA_API_KEY;
+
+        // 2. Safety check: If key is missing, stop here
+        if (!apiKey) {
+          console.error("API Key is missing! Check your .env file.");
+          setError("API Key configuration error");
+          setLoading(false);
+          return;
+        }
+
         const response = await axios.get("https://newsdata.io/api/1/latest", {
           params: {
-            apikey: "pub_18b155f201304fe68717c1aa6f3c410d",
+            apikey: apiKey, // Using the variable from .env
             q: "crypto",
           },
         });
@@ -41,6 +52,7 @@ const News = () => {
 
         setArticles(filteredArticles);
       } catch (err) {
+        console.error(err);
         setError("Error fetching news");
       } finally {
         setLoading(false);
